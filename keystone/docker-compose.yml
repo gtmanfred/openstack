@@ -1,0 +1,20 @@
+memcached:
+  image: memcached
+postgres:
+  build: postgres
+  ports:
+    - '5432:5432'
+  environment:
+    - POSTGRES_USER=openstack
+    - POSTGRES_PASSWORD=xzc09ujl23kr
+keystone:
+  build: keystone 
+  user: keystone
+  working_dir: /home/keystone
+  command: keystone-all
+  ports:
+    - '35357:35357'
+    - '5000:5000'
+  links:
+    - postgres
+    - memcached

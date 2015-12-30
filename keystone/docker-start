@@ -4,8 +4,6 @@ docker-compose pull
 docker-compose build
 docker-compose up -d postgres
 until pg_isready --host "$(docker-machine ip dev)"; do sleep 1; done
-docker run --rm -ti --link $(basename $PWD)_postgres_1:postgres $(basename $PWD)_mistral-api mistral-db-manage --config-file /etc/mistral.conf upgrade head
-docker run --rm -ti --link $(basename $PWD)_postgres_1:postgres $(basename $PWD)_mistral-api mistral-db-manage --config-file /etc/mistral.conf populate
 docker run --rm -ti --link $(basename $PWD)_postgres_1:postgres $(basename $PWD)_keystone keystone-manage db_sync
 docker-compose up -d
 until nc -vz "$(docker-machine ip dev)" 35357; do sleep 1; done
