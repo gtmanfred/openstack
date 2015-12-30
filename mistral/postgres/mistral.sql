@@ -1,0 +1,3 @@
+CREATE USER mistral WITH PASSWORD 'ou09xzu4nlkj';
+CREATE DATABASE mistral;
+GRANT ALL PRIVILEGES ON DATABASE mistral to mistral;

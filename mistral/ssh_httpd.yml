@@ -1,0 +1,14 @@
+---
+version: '2.0'
+
+bootstrap_vm:
+  description: Install apache
+
+  input:
+    - ipaddr
+    - username
+    - password
+
+  tasks:
+    install_apache:
+      action: std.ssh cmd="yum install -y httpd" host=<% $.ipaddr %> username=<% $.username %> password=<% $.password %>

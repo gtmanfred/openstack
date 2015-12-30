@@ -1,0 +1,51 @@
+memcached:
+  image: memcached
+postgres:
+  build: postgres
+  ports:
+    - '5432:5432'
+  environment:
+    - POSTGRES_USER=openstack
+    - POSTGRES_PASSWORD=xzc09ujl23kr
+rabbitmq:
+  image: rabbitmq
+mistral-engine:
+  build: mistral
+  user: mistral
+  working_dir: /home/mistral
+  command: mistral-server --server engine --config-file /etc/mistral.conf
+  links:
+    - keystone
+    - rabbitmq
+    - postgres
+mistral-api:
+  build: mistral
+  user: mistral
+  working_dir: /home/mistral
+  command: mistral-server --server api --config-file /etc/mistral.conf
+  ports:
+    - '8989:8989'
+  links:
+    - keystone
+    - rabbitmq
+    - postgres
+mistral-executor:
+  build: mistral
+  user: mistral
+  working_dir: /home/mistral
+  command: mistral-server --server executor --config-file /etc/mistral.conf
+  links:
+    - keystone
+    - rabbitmq
+    - postgres
+keystone:
+  build: keystone 
+  user: keystone
+  working_dir: /home/keystone
+  command: keystone-all
+  ports:
+    - '35357:35357'
+    - '5000:5000'
+  links:
+    - postgres
+    - memcached
