@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 openstack service create --name keystone --description "Openstack Identity" identity
-openstack endpoint create --region RegionOne identity public http://$(docker-machine ip dev):5000/v2.0
-openstack endpoint create --region RegionOne identity internal http://$(docker-machine ip dev):5000/v2.0
-openstack endpoint create --region RegionOne identity admin http://$(docker-machine ip dev):35357/v2.0
+openstack endpoint create --region RegionOne identity public http://$(docker-machine ip $DOCKER_MACHINE_NAME):5000/v2.0
+openstack endpoint create --region RegionOne identity internal http://$(docker-machine ip $DOCKER_MACHINE_NAME):5000/v2.0
+openstack endpoint create --region RegionOne identity admin http://$(docker-machine ip $DOCKER_MACHINE_NAME):35357/v2.0
 openstack project create --domain default --description "Admin Project" admin
 openstack project create --domain default --description "Demo Project" demo
 openstack project create --domain default --description "Service Project" service

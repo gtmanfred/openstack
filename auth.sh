@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 admin_url(){
     if [[ -n $OLDCLIENT ]]; then
-        echo export OS_AUTH_URL="http://$(docker-machine ip dev):35357/v2.0"
+        echo export OS_AUTH_URL="http://$(docker-machine ip $DOCKER_MACHINE_NAME):35357/v2.0"
     else
-        echo export OS_AUTH_URL="http://$(docker-machine ip dev):35357/v3"
+        echo export OS_AUTH_URL="http://$(docker-machine ip $DOCKER_MACHINE_NAME):35357/v3"
     fi
 }
 keystone_url(){
     if [[ -n $OLDCLIENT ]]; then
-        echo export OS_SERVICE_ENDPOINT="http://$(docker-machine ip dev):35357/v2.0"
+        echo export OS_SERVICE_ENDPOINT="http://$(docker-machine ip $DOCKER_MACHINE_NAME):35357/v2.0"
     else
-        echo export OS_SERVICE_ENDPOINT="http://$(docker-machine ip dev):35357/v3"
+        echo export OS_SERVICE_ENDPOINT="http://$(docker-machine ip $DOCKER_MACHINE_NAME):35357/v3"
     fi
 }
 user_url() {
     if [[ -n $OLDCLIENT ]]; then
-        echo export OS_AUTH_URL="http://$(docker-machine ip dev):5000/v2.0"
+        echo export OS_AUTH_URL="http://$(docker-machine ip $DOCKER_MACHINE_NAME):5000/v2.0"
     else
-        echo export OS_AUTH_URL="http://$(docker-machine ip dev):5000/v3"
+        echo export OS_AUTH_URL="http://$(docker-machine ip $DOCKER_MACHINE_NAME):5000/v3"
     fi
 }
 demo() {
@@ -56,7 +56,7 @@ mistral() {
 keystone() {
     echo export OS_TOKEN=99bfa3ca9193f2e671c1 \
                 OS_IDENTITY_API_VERSION=3 \
-                OS_URL="http://$(docker-machine ip dev):35357/v3" \
+                OS_URL="http://$(docker-machine ip $DOCKER_MACHINE_NAME):35357/v3" \
                 OS_SERVICE_TOKEN=99bfa3ca9193f2e671c1
     keystone_url
 }
