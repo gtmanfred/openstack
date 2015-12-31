@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+if openstack user show mistral; then
+    exit 0
+fi
 openstack service create --name keystone --description "Openstack Identity" identity
 openstack service create --name mistral --description "Openstack Workflow Service" workflowv2
 openstack endpoint create --region RegionOne identity public http://$(docker-machine ip dev):5000/v2.0
